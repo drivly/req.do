@@ -32,6 +32,7 @@ export default {
       expirationTtl: 60 * 60 * 24 * 30,
       metadata: {
         ip: req.headers.get('cf-connecting-ip'),
+        ray: req.headers.get('cf-ray'),
         ts,
         time,
       }
