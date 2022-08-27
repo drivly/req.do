@@ -9,14 +9,18 @@ export default {
 //     const stub = env.COUNTER.get(env.COUNTER.idFromName('logs'))
 //     return stub.fetch(req)
     
+    const response = res.clone()
+    const body = await response.json()
+    
     ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray-id'), JSON.stringify({ 
       request: {
         ...req.clone(),
-        headers: Object.fromEntries(res.headers)
+        headers: Object.fromEntries(req.headers),
       },
       response: {
-        ...res.clone(),
-        headers: Object.fromEntries(res.headers)
+        ...response,
+        headers: Object.fromEntries(res.headers),
+        body,
       }
     })))
     
