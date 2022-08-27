@@ -3,10 +3,8 @@ export default {
     // get durable object
     const { origin, hostname, pathname } = new URL(req.url)
     
-    const request = req.clone()
-    request.url = request.url.replace(hostname + '/', '')
-    
-    const res = await fetch(request)
+    const request = req.clone()    
+    const res = await fetch(request.url.replace(hostname + '/', ''), request)
 //     const response = { ...res.clone(), headers: Object.fromEntries(res.headers)
     
 //     const stub = env.COUNTER.get(env.COUNTER.idFromName('logs'))
