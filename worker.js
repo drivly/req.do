@@ -17,6 +17,7 @@ export default {
     
     ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray') + '-' + req.cf.colo, JSON.stringify({ 
       ts,
+      time,
       request: {
         ...req.clone(),
         headers: Object.fromEntries(req.headers),
@@ -32,6 +33,7 @@ export default {
       metadata: {
         ip: req.headers.get('cf-connecting-ip'),
         ts,
+        time,
       }
     }))
     
