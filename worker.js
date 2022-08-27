@@ -7,8 +7,8 @@ export default {
     
     if (pathname == '/api') {
       const list = await env.LOGS.list()
-      list.keys = list.keys.map(key => ({ url: 'https://req.do/api/' + key.name, ...key, })
-      return new Response(JSON.stringify(, null, 2), { headers: { 'content-type': 'application/json' }})   
+      list.keys = list.keys.map(key => ({ url: 'https://req.do/api/' + key.name, ...key, }))
+      return new Response(JSON.stringify(list, null, 2), { headers: { 'content-type': 'application/json' }})   
     } else if (pathname.startsWith('/api/')) {
       const [ _, id ] = pathname.split('/api/')
       return new Response(JSON.stringify(await env.LOGS.get(id), null, 2), { headers: { 'content-type': 'application/json' }})   
