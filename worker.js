@@ -4,10 +4,10 @@ export default {
     const { origin, hostname, pathname } = new URL(req.url)
     
     if (pathname == '/api') {
-      return new Response(JSON.stringify(env.LOGS.list(), null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(await env.LOGS.list(), null, 2), { headers: { 'content-type': 'application/json' }})   
     } else if (pathname.startsWith('/api/')) {
       const [ _, id ] = pathname.split('/api/')
-      return new Response(JSON.stringify(env.LOGS.get(id), null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(await env.LOGS.get(id), null, 2), { headers: { 'content-type': 'application/json' }})   
     }
     
     const res = await fetch(req.url.replace(hostname + '/', ''), req)
