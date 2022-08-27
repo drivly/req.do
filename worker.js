@@ -13,7 +13,7 @@ export default {
     const body = await response.json().catch(ex => undefined)
     
     const ts = Date.now()
-    const time = ts.toISOString()
+    const time = new Date(ts).toISOString()
     
     ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray') + '-' + req.cf.colo, JSON.stringify({ 
       ts,
