@@ -1,6 +1,6 @@
 name = "req-do"
 account_id = "b6641681fe423910342b9ffa1364c76d"
-route = { pattern = "*/*", zone_id = "d8f313be58d4edc5f0f586b13f033d62" }
+route = { pattern = "*/*", zone_id = "ee5dd79382b953132a0cb9bcb35e05e5" }
 main = "worker.js"
 usage_model = "unbound"
 compatibility_date = "2022-08-27"
