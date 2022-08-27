@@ -4,7 +4,7 @@ export default {
     const { origin, hostname, pathname } = new URL(req.url)
     
     if (pathname.startsWith('/api')) {
-      return new Response(JSON.stringify(LOGS.list(), null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(env.LOGS.list(), null, 2), { headers: { 'content-type': 'application/json' }})   
     }
     
     const res = await fetch(req.url.replace(hostname + '/', ''), req)
