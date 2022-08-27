@@ -12,7 +12,7 @@ export default {
     const response = res.clone()
     const body = await response.json()
     
-    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray-id'), JSON.stringify({ 
+    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray'), JSON.stringify({ 
       request: {
         ...req.clone(),
         headers: Object.fromEntries(req.headers),
