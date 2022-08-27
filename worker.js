@@ -10,7 +10,7 @@ export default {
 //     return stub.fetch(req)
     
     const response = res.clone()
-    const body = await response.json().catch()
+    const body = await response.json().catch(ex => undefined)
     
     const ts = Date.now()
     
