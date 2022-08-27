@@ -2,6 +2,8 @@ export default {
   fetch: async (req, env, ctx) => {
     // get durable object
     const { origin, hostname, pathname } = new URL(req.url)
+    const { colo } = req.cf
+    const ip = req.headers.get('cf-connecting-ip'),
     
     if (pathname == '/api') {
       const list = await env.LOGS.list()
@@ -24,8 +26,9 @@ export default {
     const ts = Date.now()
     const time = new Date(ts).toISOString()
     
-    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray') + '-' + req.cf.colo, JSON.stringify({ 
+    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray'), JSON.stringify({ 
       ts,
+      colo,
       time,
       request: {
         ...req.clone(),
@@ -40,8 +43,8 @@ export default {
     { 
       expirationTtl: 60 * 60 * 24 * 30,
       metadata: {
-        ip: req.headers.get('cf-connecting-ip'),
-        ray: req.headers.get('cf-ray'),
+        colo,
+        ip,
         ts,
         time,
       }
