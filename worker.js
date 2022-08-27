@@ -22,7 +22,13 @@ export default {
         headers: Object.fromEntries(res.headers),
         body,
       }
-    })))
+    }),
+    { 
+      expirationTtl: 60 * 60 * 24 * 30,
+      metadata: {
+        ip: req.headers.get('cf-connecting-ip')
+      }
+    }))
     
     return res
   },
