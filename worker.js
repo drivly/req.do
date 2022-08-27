@@ -3,7 +3,7 @@ export default {
     // get durable object
     const { origin, hostname, pathname } = new URL(req.url)
     const { colo } = req.cf
-    const ip = req.headers.get('cf-connecting-ip'),
+    const ip = req.headers.get('cf-connecting-ip')
     
     if (pathname == '/api') {
       const list = await env.LOGS.list()
