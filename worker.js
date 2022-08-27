@@ -12,7 +12,10 @@ export default {
     const response = res.clone()
     const body = await response.json()
     
+    const ts = Date.now()
+    
     ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray') + '-' + req.cf.colo, JSON.stringify({ 
+      ts,
       request: {
         ...req.clone(),
         headers: Object.fromEntries(req.headers),
@@ -26,7 +29,8 @@ export default {
     { 
       expirationTtl: 60 * 60 * 24 * 30,
       metadata: {
-        ip: req.headers.get('cf-connecting-ip')
+        ip: req.headers.get('cf-connecting-ip'),
+        ts,
       }
     }))
     
