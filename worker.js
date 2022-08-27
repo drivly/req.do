@@ -11,7 +11,7 @@ export default {
       return new Response(JSON.stringify(list, null, 2), { headers: { 'content-type': 'application/json' }})   
     } else if (pathname.startsWith('/api/')) {
       const [ _, id ] = pathname.split('/api/')
-      return new Response(JSON.stringify(await env.LOGS.get(id, { type: "json" }), null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(await env.LOGS.getWithMetadata(id, { type: "json" }), null, 2), { headers: { 'content-type': 'application/json' }})   
     }
     
     const res = await fetch(req.url.replace(hostname + '/', ''), req)
