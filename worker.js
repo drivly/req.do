@@ -1,14 +1,24 @@
 export default {
-  fetch: async (req, env) => {
+  fetch: async (req, env, ctx) => {
     // get durable object
     const { origin, hostname, pathname } = new URL(req.url)
     
-    const request = req.clone()    
-    const res = await fetch(request.url.replace(hostname + '/', ''), request)
+    const res = await fetch(request.url.replace(hostname + '/', ''), req)
 //     const response = { ...res.clone(), headers: Object.fromEntries(res.headers)
     
 //     const stub = env.COUNTER.get(env.COUNTER.idFromName('logs'))
 //     return stub.fetch(req)
+    
+    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray-id'), JSON.stringify({ 
+      request: {
+        ...req.clone(),
+        headers: Object.fromEntries(res.headers)
+      },
+      response: {
+        ...res.clone(),
+        headers: Object.fromEntries(res.headers)
+      }
+    })))
     
     return res
   },
