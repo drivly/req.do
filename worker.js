@@ -12,7 +12,7 @@ export default {
     const response = res.clone()
     const body = await response.json()
     
-    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray'), JSON.stringify({ 
+    ctx.waitUntil(env.LOGS.put(req.headers.get('cf-ray') + '-' + req.cf.colo, JSON.stringify({ 
       request: {
         ...req.clone(),
         headers: Object.fromEntries(req.headers),
@@ -22,7 +22,7 @@ export default {
         headers: Object.fromEntries(res.headers),
         body,
       }
-    }),
+    }, null, 2),
     { 
       expirationTtl: 60 * 60 * 24 * 30,
       metadata: {
