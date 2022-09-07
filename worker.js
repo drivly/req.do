@@ -8,10 +8,10 @@ export default {
     if (pathname == '/api') {
       const list = await env.LOGS.list()
       list.keys = list.keys.map(key => ({ url: 'https://req.do/api/' + key.name, ...key, }))
-      return new Response(JSON.stringify(list, null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(list, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})   
     } else if (pathname.startsWith('/api/')) {
       const [ _, id ] = pathname.split('/api/')
-      return new Response(JSON.stringify(await env.LOGS.getWithMetadata(id, { type: "json" }), null, 2), { headers: { 'content-type': 'application/json' }})   
+      return new Response(JSON.stringify(await env.LOGS.getWithMetadata(id, { type: "json" }), null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})   
     }
     
     const res = await fetch(req.url.replace(hostname + '/', ''), req)
